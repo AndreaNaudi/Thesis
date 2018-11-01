@@ -1,0 +1,48 @@
+<head>
+  <title>MyApp</title>
+</head>
+
+<body>
+  {{> new}}
+</body>
+
+<template name="old">
+  <div class="card" style="width:100%">
+    <div class="card-header">Car Park 6: {{test}}</div>
+    <div class="card-body">
+      <div id='MyDiv1' class='dashboard'>
+      </div>
+      <div id='MyDiv2'>
+        <div id='MyDiv3' class='dashboard'>
+        </div>
+        <div id='MyDiv4' class='dashboard'>
+        </div>
+      </div>
+
+      <button id='directions-btn' class='dashboard'>GET DIRECTIONS</button>
+
+      <div id="MyDiv5">
+          <button id="previous-btn" >Previous</button>
+          <button id="next-btn">Next</button>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<template name="new">
+  <div class="card" style="width:100%">
+      <div class="card-header">{{getName}}</div>
+      <div id='squareDiv'>
+        <div id="arrivals" class='dashboard'><p style="font-size:2.2vw">Arrivals</p>100</div>
+        <div id="initial" class='dashboard'><p style="font-size:2.2vw">Initial</p>{{getInitial}}</div>
+        <div id="departures" class='dashboard'><p style="font-size:2.2vw">Departures</p>100</div>
+      </div>
+      <div class="btn-group">
+        <button id='previous-btn' style="width:29%">Previous</button>
+        <button id='directions-btn' style="width:39%">Get Directions</button>
+        <button id='next-btn' style="width:29%">Next</button>
+      </div>
+  </div>
+
+</template>
