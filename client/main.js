@@ -50,6 +50,7 @@ Template.new.onCreated(function helloOnCreated() {
   Session.set('currentIndex',0);
   Meteor.setInterval(function() {
     clock.set(new Date());
+    window.scrollTo(0, 1);
   }, 1000);
 });
 
@@ -91,13 +92,13 @@ Template.new.helpers({
 
 Template.new.events({
   'click #directions-btn'(event, instance) {
-    getLocation();
+    //getLocation();
 
-    /*var currentIndex = Session.get('currentIndex');
+    var currentIndex = Session.get('currentIndex');
     var p = Entities.findOne({'index':currentIndex});
     var location = p.location;
     // meteor add cordova:org.apache.cordova.inappbrowser@0.5.4
-    window.open(location, '_system');*/
+    window.open(location, '_system');
   },
   'click #next-btn'(event,instance){
     var currentIndex = Session.get('currentIndex');
