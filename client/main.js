@@ -50,7 +50,6 @@ Template.new.onCreated(function helloOnCreated() {
   Session.set('currentIndex',0);
   Meteor.setInterval(function() {
     clock.set(new Date());
-    window.scrollTo(0, 1);
   }, 1000);
 });
 
