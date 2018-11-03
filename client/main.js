@@ -61,6 +61,38 @@ Template.new.helpers({
     var p = Entities.findOne({'index':currentIndex});
     return p.name;
   },
+  getRange: function(){
+    var clock = getTime();
+    var hours = clock.getHours();
+    var minutes = clock.getMinutes();
+    var minutesRanges = [[10,12],[13,15],[16,20],[21,49]];
+    var hoursRanges = [9,10];
+    var inHour = false;
+    var s = '';
+
+    hoursRanges.forEach(function(hour) {
+      if(hours == hour){
+          inHour = true;
+      }
+    });
+
+    if(inHour == true){
+      minutesRanges.forEach(function(range) {
+        var a = range[0];
+        var b = range[1];
+        if(between(minutes, a, b)){
+            a = ('0' + a).slice(-2);
+            b = ('0' + b).slice(-2);
+            s = hours + ':'+a+' - ' +hours+ ':'+b;
+        }
+      });
+    }
+
+    if(s == ''){
+        s = 'No data for this range';
+    }
+    return s;
+  },
   getInitial: function() {
       var currentIndex = Session.get('currentIndex');
       var p = Entities.findOne({'index':currentIndex});
