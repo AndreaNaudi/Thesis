@@ -1,13 +1,16 @@
 <head>
   <title>MyApp</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCf4033detwaO_JBbPrhQQllO0VkRVyhKI"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
   {{> new}}
 </body>
 
-<template name="old">
+<!-- <template name="old">
   <div class="card" style="width:100%">
     <div class="card-header">Car Park 6: {{test}}</div>
     <div class="card-body">
@@ -29,16 +32,17 @@
 
     </div>
   </div>
-</template>
+</template> -->
 
 <template name="new">
   <div class="card" style="width:100%">
-      <div class="card-header">{{getName}}</div>
+      <div class="{{#if isOptimalCurrent}}optimal{{else}}notOptimal{{/if}} card-header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{getName}} ({{getDistance}}m) <button id="menu-btn" style="float:right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></div>
       <div class="time-header">{{getRange}}</div>
       <div id='squareDiv'>
-        <div id="arrivals" class='dashboard'><p style="font-size:2.2vw">Arrivals</p>100</div>
-        <div id="initial" class='dashboard'><p style="font-size:2.2vw">Initial</p>{{getInitial}}</div>
-        <div id="departures" class='dashboard'><p style="font-size:2.2vw">Departures</p>100</div>
+        <div id="arrivals" class='dashboard'><p style="font-size:25px">Arrivals</p>100</div>
+        <div id="initial" class='dashboard'><p style="font-size:25px">Initial</p>{{getInitialValueCurrent}}</div>
+        <div id="departures" class='dashboard'><p style="font-size:25px">Departures</p>100</div>
       </div>
       <div class="btn-group">
         <button id='previous-btn' style="width:29%">Previous</button>
@@ -47,4 +51,28 @@
       </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Other Car Parks</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="grid-container">
+            {{#each p in getEntitiies}}
+              <div class="{{#if isOptimal p.index}}optimal{{else}}notOptimal{{/if}} grid-item" name="{{p.name}}" value="{{p.index}}"
+              id="{{p.index}}">{{p.name}}</div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
