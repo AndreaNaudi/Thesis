@@ -1,6 +1,8 @@
 <head>
   <title>MyApp</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <link rel="apple-touch-icon" href="https://i.ebayimg.com/images/g/N4sAAOSwImRYmyAs/s-l640.jpg"/>
+  <link rel="shortcut icon" href="https://i.ebayimg.com/images/g/N4sAAOSwImRYmyAs/s-l640.jpg"/>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCf4033detwaO_JBbPrhQQllO0VkRVyhKI"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -10,53 +12,39 @@
   {{> new}}
 </body>
 
-<!-- <template name="old">
-  <div class="card" style="width:100%">
-    <div class="card-header">Car Park 6: {{test}}</div>
-    <div class="card-body">
-      <div id='MyDiv1' class='dashboard'>
-      </div>
-      <div id='MyDiv2'>
-        <div id='MyDiv3' class='dashboard'>
-        </div>
-        <div id='MyDiv4' class='dashboard'>
-        </div>
-      </div>
-
-      <button id='directions-btn' class='dashboard'>GET DIRECTIONS</button>
-
-      <div id="MyDiv5">
-          <button id="previous-btn" >Previous</button>
-          <button id="next-btn">Next</button>
-      </div>
-
-    </div>
-  </div>
-</template> -->
 
 <template name="new">
   <div class="card" style="width:100%">
-      <div class="{{#if isOptimalCurrent}}optimal{{else}}notOptimal{{/if}} card-header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {{getName}} ({{getDistance}}m) <button id="menu-btn" style="float:right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-bars"></i></button></div>
+      <div class="{{#if isOptimalCurrent}}optimal{{else}}notOptimal{{/if}} card-header">
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+        <!-- <button style="{{#if isOnSuggested}} color:gold;{{/if}}" id="suggested-btn"><i class="fa fa-star"></i></button> -->
+        {{getName}} ({{getDistance}}m)
+        <!-- <button id="schedule-btn" style="float:right" data-toggle="modal" data-target="#scheduleModal"><i class="fa fa-bars"></i></button> -->
+      </div>
       <div class="time-header">{{getRange}}</div>
       <div id='squareDiv'>
-        <div id="arrivals" class='dashboard'><p style="font-size:25px">Arrivals</p>100</div>
-        <div id="initial" class='dashboard'><p style="font-size:25px">Initial</p>{{getInitialValueCurrent}}</div>
-        <div id="departures" class='dashboard'><p style="font-size:25px">Departures</p>100</div>
+        <div data-toggle="modal" data-target="#scheduleModal" id="arrivals" class='dashboard'><p style="font-size:25px">Arrivals</p>{{getArrivalsValueCurrent}}<p style="font-size:20px; margin-top:15px">Cars</p></div>
+        <div id="initial" class='dashboard'><p style="font-size:25px">Initial Empty</p>{{getInitialValueCurrent}}<p style="font-size:22px; margin-top:25px">Spaces</p></div>
+        <div data-toggle="modal" data-target="#scheduleModal" id="departures" class='dashboard'><p style="font-size:25px">Departures</p>{{getDeparturesValueCurrent}}<p style="font-size:20px; margin-top:15px">Cars</p></div>
       </div>
-      <div class="btn-group">
-        <button id='previous-btn' style="width:29%">Previous</button>
+      <div class="btn-group" style="width:100%; height: auto">
+        <!-- <button id='previous-btn' style="width:29%">Previous</button>
         <button id='directions-btn' style="width:39%">Get Directions</button>
-        <button id='next-btn' style="width:29%">Next</button>
+        <button id='next-btn' style="width:29%">Next</button> -->
+        <button id="previous-btn" type="button" class="btn"><i class="fa fa-caret-left"></i></button>
+        <button id="directions-btn" type="button" class="btn"><i class="fa fa-map"></i></button>
+        <button id="menu-btn" data-toggle="modal" data-target="#menuModal" type="button" class="btn"><i class="fa fa-circle"></i></button>
+        <button style="{{#if isOnSuggested}} color:gold;{{/if}}" id="suggested-btn" type="button" class="btn"><i class="fa fa-star"></i></button>
+        <button id="next-btn" type="button" class="btn"><i class="fa fa-caret-right"></i></button>
       </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Other Car Parks</h5>
+          <h5 class="modal-title" id="menuModalLabel">Other Car Parks</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -70,7 +58,43 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button id="close-btn" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="close-menu-btn" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="menuModalLabel">Predicted {{getTypeName}} {{getName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="grid-container">
+            <table class="table">
+            <thead class="thead-light">
+              <tr>
+                {{#each time in getTimeIntervals}}
+                  <th style="{{#if isCurrentInterval time}} color:red {{/if}}" scope="col">{{time}}</th>
+                {{/each}}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {{#each number in getSchedule}}
+                  <th scope="col">{{number}}</th>
+                {{/each}}
+              </tr>
+            </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="close-schedule-btn" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

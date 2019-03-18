@@ -66,7 +66,8 @@ body{
   text-transform: uppercase;
 }
 .card{
-  background-color: #d9d9d9;
+  /* background-color: #f9f9f9; */
+  background-color: #E1E2E1;
   padding-bottom: 10px;
 }
 .card-header{
@@ -76,30 +77,55 @@ body{
   font-weight: bold;
   margin-bottom: 10px;
 }
-#menu-btn{
+/* #menu-btn{
   color: white;
+  float:right;
+  background-color: transparent;
+  border:none;
+  outline:none;
+} */
+#suggested-btn{
+  color: white;
+  /* float:left;
+  background-color: transparent;
+  border:none;
+  outline:none; */
 }
 .time-header{
   text-align: center;
   width:100%;
   color: black;
   font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .dashboard{
-  border-radius: 3%;
-  box-shadow: 2px 2px black;
+  /* border-radius: 3%; */
+  /* box-shadow: 1px 1px #0d47a1; */
+  box-shadow: 1.5px 1.5px 1px black;
 }
+
 #squareDiv div {
-  height: 27.5vw;
-  width: 27.5vw;
-  background-color: #666666;
-  color: white;
+  height: 24.5vw;
+  width: 24.5vw;
+  /* border: 2px solid #0d47a1; */
+  border: 0.1px solid black;
+  /* background-color: #ededed; */
+  background-color: #F5F5F6;
+  color: black;
+  font-weight: 300;
   display: inline-block;
   text-align: center;
   font-size: 10vw;
   line-height: 7vw;
   position: relative;
   margin-right: 10px;
+  cursor: pointer;
+}
+#squareDiv div:active{
+  background-color: #0d47a1;
+  color: white;
+  font-weight: 300;
 }
 div{
   display: inline-block;
@@ -111,31 +137,60 @@ div{
   padding-top: 10px;
   padding-bottom: 12px;
 }
-#squareDiv div{
-  border: 1px solid black;
-}
+
 .btn-group{
   width:100%;
   height:auto;
+  margin-top: 10px;
 }
-.btn-group button {
+
+.btn:focus,.btn:active:focus,.btn.active:focus,
+.btn.focus,.btn:active.focus,.btn.active.focus {
+  box-shadow:none !important;
+  outline:none !important;
+}
+
+/* .btn-group button {
     height: 60px;
     margin-left: 4px;
-    background-color: navy; /* Green background */
-    color: white; /* White text */
-    cursor: pointer; /* Pointer/hand icon */
-    float: left; /* Float the buttons side by side */
+    background-color: navy;
+    color: white;
+    cursor: pointer;
+    float: left;
     border:none;
     outline:none;
     text-transform: uppercase;
     box-shadow: 1px 1px black;
+} */
+
+.btn-group button{
+  width: 20%;
+  font-size: 34px;
+  color: white;
+  background-color: #002171;
+  border: 0.5px solid white;
 }
-#directions-btn{
+
+/* #directions-btn{
   background-color: #4285F4;
-}
+} */
 
 #arrivals{
   margin-left: 10px;
+  /* background-color: #ef8686; */
+  /* top:5px; */
+}
+
+#departures{
+  /* background-color: #3bb8f7; */
+  /* top:5px; */
+}
+
+#initial{
+  /* background-color: #3bb8f7; */
+  height: 27.5vw !important;
+  width: 27.5vw !important;
+  font-size: 12vw !important;
 }
 
 .grid-container {
@@ -168,4 +223,20 @@ div{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+#close-schedule-btn, #close-menu-btn{
+  width:150px;
+  font-size: 25px;
+  text-transform: uppercase;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+th, td{
+  width: 200px;
+}
+
+table{
+  table-layout: fixed;
 }

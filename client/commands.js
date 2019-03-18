@@ -6,8 +6,9 @@ if (annyang) {
       // Session.set('abx', 'next was said');
       // alert(Session.get('abx'));
     },
-    'close (menu)': function() {
-      document.getElementById("close-btn").click();
+    'close': function() {
+      document.getElementById("close-menu-btn").click();
+      document.getElementById("close-schedule-btn").click();
     },
     'next (parking)': function() {
       document.getElementById("next-btn").click();
@@ -15,13 +16,24 @@ if (annyang) {
     'previous (parking)': function() {
       document.getElementById("previous-btn").click();
     },
+    '(show) departures': function() {
+      document.getElementById("departures").click();
+    },
+    '(show) arrivals': function() {
+      document.getElementById("arrivals").click();
+    },
+    '(show) suggested': function() {
+      document.getElementById("suggested-btn").click();
+    },
     '(get) (give me) directions': function() {
       document.getElementById("directions-btn").click();
     },
     'car park one': function(){
+      Session.set('currentIndex', 1);
       document.getElementsByName('Car Park 1')[0].click();
     },
     'car park six': function(){
+      Session.set('currentIndex', 0);
       document.getElementsByName('Car Park 6')[0].click();
     }
   };
