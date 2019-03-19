@@ -35,6 +35,14 @@ if (annyang) {
     'car park six': function(){
       Session.set('currentIndex', 0);
       document.getElementsByName('Car Park 6')[0].click();
+    },
+    'car park eight': function(){
+      Session.set('currentIndex', 0);
+      document.getElementsByName('Car Park 8')[0].click();
+    },
+    'ring road': function(){
+      Session.set('currentIndex', 0);
+      document.getElementsByName('Ring Road')[0].click();
     }
   };
 

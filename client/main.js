@@ -349,8 +349,9 @@ Template.new.events({
   },
   'click #next-btn'(event,instance){
     var currentIndex = Session.get('currentIndex');
+    var p = Entities.find().count();
     var nextIndex = 0;
-    if(currentIndex + 1 < 2){
+    if(currentIndex + 1 < p){
       nextIndex = currentIndex+1;
     }
 
@@ -365,9 +366,10 @@ Template.new.events({
   },
   'click #previous-btn'(event,instance){
     var currentIndex = Session.get('currentIndex');
+    var p = Entities.find().count();
     var prevIndex;
     if(currentIndex == 0){
-      prevIndex = 1;
+      prevIndex = p-1;
     }else{
         prevIndex = currentIndex-1;
     }
