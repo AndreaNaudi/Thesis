@@ -145,6 +145,11 @@ function getPrediction(index, type){
   var minutes = clock.getMinutes();
 
   var x = 0;
+  if(hours == 9 || hours == 11){
+    if(minutes < 50){
+      return x;
+    }
+  }
   if(hours == 9 || hours == 10){
     if(between(minutes, 56, 59)){
       x = p.values[day].nineFiftySix[type];
@@ -222,9 +227,9 @@ Template.new.helpers({
     if(inHour == true){
       if(minutes == 59 || minutes == 0 || minutes == 1){
         if(hours == 9 || hours == 10){
-          s =  '9:59'+' - 10:02';
+          s =  '9:59 - 10:02';
         }else if(hours == 11 || hours == 12){
-          s =  '11:59'+' - 12:02';
+          s =  '11:59 - 12:02';
         }
       }
 
@@ -238,7 +243,11 @@ Template.new.helpers({
         }
       });
     }
-
+    if(hours == 9 || hours == 11){
+      if(minutes < 50){
+        s = '';
+      }
+    }
     if(s == ''){
         s = 'No data for this time';
     }
