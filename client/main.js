@@ -170,7 +170,9 @@ function getPrediction(index, type){
       x = p.values[day].twelveZeroFive[type];
     }
   }
-
+  if(type == 3){
+    x = p.totalSpaces - x;
+  }
   return Math.round(x * 10)/10;
 }
 
@@ -207,7 +209,7 @@ Template.new.helpers({
     var hours = clock.getHours();
     var minutes = clock.getMinutes();
     var minutesRanges = [[56,59],[2,5],[5,8]];
-    var hoursRanges = [9,10,11,12,18,19];
+    var hoursRanges = [9,10,11,12];
     var inHour = false;
     var s = '';
 
@@ -219,7 +221,11 @@ Template.new.helpers({
 
     if(inHour == true){
       if(minutes == 59 || minutes == 0 || minutes == 1){
-        s = hours + ':59'+' - ' +hours+ ':02';
+        if(hours == 9 || hours == 10){
+          s =  '9:59'+' - 10:02';
+        }else if(hours == 11 || hours == 12){
+          s =  '11:59'+' - 12:02';
+        }
       }
 
       minutesRanges.forEach(function(range) {
