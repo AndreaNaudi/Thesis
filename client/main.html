@@ -1,5 +1,5 @@
 <head>
-  <title>MyApp</title>
+  <title>Smart Sky Automator</title>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="apple-touch-icon" href="https://i.ebayimg.com/images/g/N4sAAOSwImRYmyAs/s-l640.jpg"/>
   <link rel="shortcut icon" href="https://i.ebayimg.com/images/g/N4sAAOSwImRYmyAs/s-l640.jpg"/>
@@ -14,20 +14,17 @@
 
 
 <template name="new">
-  <div class="card" style="width:100%">
+  <div class="card" style="width:100%; position:relative">
       <div class="{{#if isOptimalCurrent}}optimal{{else}}notOptimal{{/if}} card-header">
-        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-        <!-- <button style="{{#if isOnSuggested}} color:gold;{{/if}}" id="suggested-btn"><i class="fa fa-star"></i></button> -->
-        {{getName}} ({{getDistance}}m)
-        <!-- <button id="schedule-btn" style="float:right" data-toggle="modal" data-target="#scheduleModal"><i class="fa fa-bars"></i></button> -->
+        {{getRange}}
       </div>
-      <div class="time-header">{{getRange}}</div>
+      <div class="time-header">{{getName}} ({{getDistance}} km)</div>
       <div id='squareDiv'>
         <div data-toggle="modal" data-target="#scheduleModal" id="arrivals" class='dashboard'><p style="font-size:25px">Arrivals</p>{{getArrivalsValueCurrent}}<p style="font-size:20px; margin-top:15px">Cars</p></div>
-        <div id="initial" class='dashboard'><p style="font-size:25px">Initial Empty</p>{{getInitialValueCurrent}}<p style="font-size:22px; margin-top:25px">Spaces</p></div>
+        <div data-toggle="modal" data-target="#scheduleModal" id="initial" class='dashboard'><p style="font-size:25px">End Vacant</p>{{getEndValueCurrent}}<p style="font-size:22px; margin-top:25px">Spaces</p></div>
         <div data-toggle="modal" data-target="#scheduleModal" id="departures" class='dashboard'><p style="font-size:25px">Departures</p>{{getDeparturesValueCurrent}}<p style="font-size:20px; margin-top:15px">Cars</p></div>
       </div>
-      <div class="btn-group" style="width:100%; height: auto">
+      <div class="btn-group" style="width:100%; height: auto; position:absolute; bottom:0">
         <!-- <button id='previous-btn' style="width:29%">Previous</button>
         <button id='directions-btn' style="width:39%">Get Directions</button>
         <button id='next-btn' style="width:29%">Next</button> -->
@@ -37,6 +34,7 @@
         <button style="{{#if isOnSuggested}} color:gold;{{/if}}" id="suggested-btn" type="button" class="btn"><i class="fa fa-star"></i></button>
         <button id="next-btn" type="button" class="btn"><i class="fa fa-caret-right"></i></button>
       </div>
+
   </div>
 
   <!-- Modal -->
@@ -68,7 +66,7 @@
     <div class="modal-dialog modal-dialog-centered " role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="menuModalLabel">Predicted {{getTypeName}} {{getName}}</h5>
+          <h5 class="modal-title" id="menuModalLabel">Predicted {{getTypeName}} <b>{{getName}}</b></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

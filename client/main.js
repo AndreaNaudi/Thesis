@@ -5,28 +5,7 @@ import { Entities } from '/imports/api/collections.js';
 import './main.html';
 import './commands.js';
 //MONGO_URL=mongodb://anau0005:Juventus1998@ds125273.mlab.com:25273/fyp2019 meteor
-function getTimeDecimal(){
-  var currentTime = clock.get();
-  var hours = currentTime.getHours();
-  var minutes = currentTime.getMinutes()/60;
 
-  return (hours+minutes).toFixed(2);
-}
-function SwapDivsWithClick(div1,div2)
-{
-   d1 = document.getElementById(div1);
-   d2 = document.getElementById(div2);
-   if( d2.style.display == "none" )
-   {
-      d1.style.display = "none";
-      d2.style.display = "block";
-   }
-   else
-   {
-      d1.style.display = "block";
-      d2.style.display = "none";
-   }
-}
 function getTime(){
   var currentTime = clock.get();
   return currentTime;
@@ -94,41 +73,29 @@ function showError(error) {
 
 function isOptimalFn(index){
   index = parseInt(index);
-  //var init = getInitialValueFn(index);
+  var endEmpty = 5;
+  var dep = 1;
+  var arr = 4;
+  var endEmpty = getPrediction(index,3);
+  var dep = getPrediction(index,1);
+  var arr = getPrediction(index,2);
 
-  var optimality = 0;
-
-  var init = 0;
-  var dep = 6;
-
-  if(init >= 5){
-    optimality += 1;
-  }
-  if(dep >= 5){
-    optimality += 1;
-  }
+  var optimality = calculateScore(endEmpty,dep,arr);
 
   if(optimality > getScoreSuggested()){
     Session.set('suggestedIndex', index);
   }
-
   return optimality > 0;
 }
-
+function calculateScore(endEmpty, departures, arrivals){
+  return endEmpty + departures - arrivals;
+}
 function getScoreSuggested(){
-  //var suggestedIndex = Session.get('suggestedIndex')};
-  var score = 0;
-  if(Session.get('currentIndex') == 1){
-    return 1;
-  }
-
-
-  // get from functions
-  // var initial = getInitialValueFn(suggestedIndex)
-  // var departures
-  // var accumulation
-
-  //calculate score
+  var suggestedIndex = Session.get('suggestedIndex');
+  var endEmpty = getPrediction(suggestedIndex,3);
+  var dep = getPrediction(suggestedIndex,1);
+  var arr = getPrediction(suggestedIndex,2);
+  var score = calculateScore(endEmpty,dep,arr);
   return score;
 }
 
@@ -147,6 +114,11 @@ function getPrediction(index, type){
   var x = 0;
   if(hours == 9 || hours == 11){
     if(minutes < 50){
+      return x;
+    }
+  }
+  if(hours == 10 || hours == 12){
+    if(minutes > 10){
       return x;
     }
   }
@@ -175,15 +147,18 @@ function getPrediction(index, type){
       x = p.values[day].twelveZeroFive[type];
     }
   }
+
+  x = Math.round(x * 10)/10;
   if(type == 3){
     x = p.totalSpaces - x;
   }
-  return Math.round(x * 10)/10;
+  return x;
 }
 
 Template.new.onCreated(function newOnCreated() {
   Session.set('currentIndex',0);
-  //setTimeout(function() { setLocation(); }, 1000);
+  Session.set('suggestedIndex',0);
+  // setTimeout(function() { setLocation(); console.log(Session.get('currentIndex'));}, 1000);
   Meteor.setInterval(function() {
     clock.set(new Date());
   }, 1000);
@@ -202,7 +177,9 @@ Template.new.helpers({
     return Session.get('suggestedIndex') == Session.get('currentIndex');
   },
   getDistance: function(){
-    return Session.get('distanceFromOrigin');
+    var distance =  Session.get('distanceFromOrigin')/1000;
+    distance = Math.round( distance * 10 ) / 10;
+    return distance;
   },
   getName: function(){
     var currentIndex = Session.get('currentIndex');
@@ -248,6 +225,11 @@ Template.new.helpers({
         s = '';
       }
     }
+    if(hours == 10 || hours == 12){
+      if(minutes > 10){
+        s = '';
+      }
+    }
     if(s == ''){
         s = 'No data for this time';
     }
@@ -256,6 +238,11 @@ Template.new.helpers({
   getInitialValue: function(index) {
       index = parseInt(index);
       var value = getPrediction(index, 0);
+      return value;
+  },
+  getEndValue: function(index) {
+      index = parseInt(index);
+      var value = getPrediction(index, 3);
       return value;
   },
   getArrivalsValue: function(index) {
@@ -273,6 +260,11 @@ Template.new.helpers({
       var value = getPrediction(index,0);
       return value;
   },
+  getEndValueCurrent: function() {
+      var index = parseInt(Session.get('currentIndex'));
+      var value = getPrediction(index,3);
+      return value;
+  },
   getArrivalsValueCurrent: function() {
       var index = parseInt(Session.get('currentIndex'));
       var value = getPrediction(index,2);
@@ -288,9 +280,6 @@ Template.new.helpers({
   },
   isOptimalCurrent: function(){
     return isOptimalFn(Session.get('currentIndex'));
-  },
-  timeDecimal: function() {
-    return getTimeDecimal();
   },
   getSchedule: function() {
     var type = Session.get('type');
@@ -349,10 +338,6 @@ Template.new.helpers({
 });
 
 Template.new.events({
-  'click #swap-btn'(){
-    SwapDivsWithClick('locations-screen','main-screen');
-    //alert('hello');
-  },
   'click #directions-btn'(event, instance) {
     //getLocation();
 
@@ -388,11 +373,12 @@ Template.new.events({
     }else{
         prevIndex = currentIndex-1;
     }
-
     Session.set('currentIndex', prevIndex);
+    // setLocation();
   },
   'click #suggested-btn'(event,instance){
     Session.set('currentIndex', Session.get('suggestedIndex'));
+    // setLocation();
   },
   'click .grid-item':function(e){
       var id = e.target.id;
@@ -400,7 +386,7 @@ Template.new.events({
       var value = clickedDiv.getAttribute('value');
       value = parseInt(value);
       Session.set('currentIndex', value);
-      //setLocation();
+      // setLocation();
       document.getElementById('close-menu-btn').click();
   },
   'click #departures':function(){
@@ -412,6 +398,12 @@ Template.new.events({
   'click #arrivals':function(){
     Session.set('type', 2);
     Session.set('type-name', "Arrivals");
+    var header = document.getElementsByClassName("time-header")[0].innerHTML;
+    Session.set('time-header-text', header);
+  },
+  'click #initial':function(){
+    Session.set('type', 3);
+    Session.set('type-name', "End Vacancy");
     var header = document.getElementsByClassName("time-header")[0].innerHTML;
     Session.set('time-header-text', header);
   }

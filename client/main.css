@@ -1,74 +1,10 @@
-/*body {
-  font-family: sans-serif;
-}
-.dashboard{
-  border-radius: 3%;
-  box-shadow: 2px 2px #888888;
-}
-#MyDiv1{
-  width:100%;
-  height:250px;
-  background-color:lightgray;
-  margin-bottom: 10px;
-}
-#MyDiv2{
-  width:100%;
-  height:90px;
-  margin-bottom: 10px;
-  float:left;
-  background-color: none;
-}
-#MyDiv3{
-  float:left;
-  background-color: lightgray;
-  width:48%;
-  height:90px;
-}
-#MyDiv4{
-  float:right;
-  background-color: green;
-  width:48%;
-  height:90px;
-}
-#MyDiv5{
-  width:100%;
-  height:50px;
-  margin-bottom: 10px;
-  float:left;
-}
-#directions-btn{
-  width:100%;
-  background-color: #4885ed;
-  font-size: 22px;
-  color: white;
-  height:70px;
-  text-align: center;
-  border: none;
-  outline:none;
-  margin-bottom: 10px;
-}
-#previous-btn{
-    width: 48%;
-    height: 50px;
-}
-#next-btn{
-  float:right;
-    width: 48%;
-    height: 50px;
-}
-.card-header{
-  text-align: center;
-  background-color: green;
-  color: white;
-}*/
 body{
   font-size:25px;
   text-transform: uppercase;
 }
 .card{
-  /* background-color: #f9f9f9; */
   background-color: #E1E2E1;
-  padding-bottom: 10px;
+  height:100vh;
 }
 .card-header{
   text-align: center;
@@ -77,22 +13,12 @@ body{
   font-weight: bold;
   margin-bottom: 10px;
 }
-/* #menu-btn{
-  color: white;
-  float:right;
-  background-color: transparent;
-  border:none;
-  outline:none;
-} */
 #suggested-btn{
   color: white;
-  /* float:left;
-  background-color: transparent;
-  border:none;
-  outline:none; */
 }
 .time-header{
   text-align: center;
+  font-size: 32px;
   width:100%;
   color: black;
   font-weight: bold;
@@ -100,8 +26,6 @@ body{
   margin-bottom: 10px;
 }
 .dashboard{
-  /* border-radius: 3%; */
-  /* box-shadow: 1px 1px #0d47a1; */
   box-shadow: 1.5px 1.5px 1px black;
 }
 
@@ -134,7 +58,7 @@ div{
 #squareDiv {
   height: auto;
   width:100%;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 12px;
 }
 
@@ -144,36 +68,21 @@ div{
   margin-top: 10px;
 }
 
-.btn:focus,.btn:active:focus,.btn.active:focus,
-.btn.focus,.btn:active.focus,.btn.active.focus {
+.btn:focus,.btn:active
+{
   box-shadow:none !important;
   outline:none !important;
+  background-color: #163fa0;
 }
-
-/* .btn-group button {
-    height: 60px;
-    margin-left: 4px;
-    background-color: navy;
-    color: white;
-    cursor: pointer;
-    float: left;
-    border:none;
-    outline:none;
-    text-transform: uppercase;
-    box-shadow: 1px 1px black;
-} */
 
 .btn-group button{
   width: 20%;
-  font-size: 34px;
+  font-size: 36px;
+  height:80px;
   color: white;
   background-color: #002171;
   border: 0.5px solid white;
 }
-
-/* #directions-btn{
-  background-color: #4285F4;
-} */
 
 #arrivals{
   margin-left: 10px;
@@ -210,10 +119,10 @@ div{
   height: 10vw;
 }
 .optimal{
-  background-color: green;
+  background-color: #003300;
 }
 .notOptimal{
-  background-color: red;
+  background-color: #7f0000;
 }
 
 .modal-content{
