@@ -148,7 +148,8 @@ function getPrediction(index, type){
     }
   }
 
-  x = Math.round(x * 10)/10;
+  //x = Math.round(x * 10)/10;
+  x = Math.round(x);
   if(type == 3){
     x = p.totalSpaces - x;
   }
