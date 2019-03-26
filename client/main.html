@@ -15,7 +15,7 @@
 
 <template name="new">
   <div class="card" style="width:100%; position:relative">
-      <div class="{{#if isOptimalCurrent}}optimal{{else}}notOptimal{{/if}} card-header">
+      <div id="name-header" class="{{#if isOptimalCurrent}}optimal{{else}}notOptimal{{/if}} card-header">
         {{getRange}}
       </div>
       <div class="time-header">{{getName}} ({{getDistance}} km)</div>

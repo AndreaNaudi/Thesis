@@ -301,6 +301,13 @@ Template.new.helpers({
       arr[1] = Math.round(p.values[day].nineFiftyNine[type]);
       arr[2] = Math.round(p.values[day].tenZeroTwo[type]);
       arr[3] = Math.round(p.values[day].tenZeroFive[type]);
+
+      if(type == 3){
+        arr[0] = p.totalSpaces-Math.round(p.values[day].nineFiftySix[type]);
+        arr[1] = p.totalSpaces-Math.round(p.values[day].nineFiftyNine[type]);
+        arr[2] = p.totalSpaces-Math.round(p.values[day].tenZeroTwo[type]);
+        arr[3] = p.totalSpaces-Math.round(p.values[day].tenZeroFive[type]);
+      }
       return arr;
     }
 
@@ -309,6 +316,12 @@ Template.new.helpers({
       arr[1] = Math.round(p.values[day].elevenFiftyNine[type]);
       arr[2] = Math.round(p.values[day].twelveZeroTwo[type]);
       arr[3] = Math.round(p.values[day].twelveZeroFive[type]);
+      if(type == 3){
+        arr[0] = p.totalSpaces-Math.round(p.values[day].elevenFiftySix[type]);
+        arr[1] = p.totalSpaces-Math.round(p.values[day].elevenFiftyNine[type]);
+        arr[2] = p.totalSpaces-Math.round(p.values[day].twelveZeroTwo[type]);
+        arr[3] = p.totalSpaces-Math.round(p.values[day].twelveZeroFive[type]);
+      }
       return arr;
     }
     return ["na","na","na","na"];
@@ -331,7 +344,7 @@ Template.new.helpers({
     return ["9:56 - 9:59","9:59 - 10:02", "10:02 - 10:05", "10:05 - 10:08"];
   },
   isCurrentInterval: function(time){
-    var header = Session.get('time-header-text');
+    var header = Session.get('name-header-text');
     var x = header.includes(time);
     return x;
     //return true;
@@ -393,19 +406,21 @@ Template.new.events({
   'click #departures':function(){
     Session.set('type', 1);
     Session.set('type-name', "Departures");
-    var header = document.getElementsByClassName("time-header")[0].innerHTML;
-    Session.set('time-header-text', header);
+    var header = document.getElementById("name-header").innerHTML;
+    Session.set('name-header-text', header);
   },
   'click #arrivals':function(){
     Session.set('type', 2);
     Session.set('type-name', "Arrivals");
-    var header = document.getElementsByClassName("time-header")[0].innerHTML;
-    Session.set('time-header-text', header);
+    // var header = document.getElementsByClassName("name-header")[0].innerHTML
+    var header = document.getElementById("name-header").innerHTML;
+
+    Session.set('name-header-text', header);
   },
   'click #initial':function(){
     Session.set('type', 3);
     Session.set('type-name', "End Vacancy");
-    var header = document.getElementsByClassName("time-header")[0].innerHTML;
-    Session.set('time-header-text', header);
+    var header = document.getElementById("name-header").innerHTML;
+    Session.set('name-header-text', header);
   }
 });
