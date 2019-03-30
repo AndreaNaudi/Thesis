@@ -22,6 +22,9 @@ if (annyang) {
     '(show) arrivals': function() {
       document.getElementById("arrivals").click();
     },
+    '(show) vacancy': function() {
+      document.getElementById("initial").click();
+    },
     '(show) suggested': function() {
       document.getElementById("suggested-btn").click();
     },
@@ -37,11 +40,11 @@ if (annyang) {
       document.getElementsByName('Car Park 6')[0].click();
     },
     'car park eight': function(){
-      Session.set('currentIndex', 0);
+      Session.set('currentIndex', 2);
       document.getElementsByName('Car Park 8')[0].click();
     },
     'ring road': function(){
-      Session.set('currentIndex', 0);
+      Session.set('currentIndex', 3);
       document.getElementsByName('Ring Road')[0].click();
     }
   };

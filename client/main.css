@@ -58,7 +58,7 @@ div{
 #squareDiv {
   height: auto;
   width:100%;
-  padding-top: 20px;
+  padding-top: 12px;
   padding-bottom: 12px;
 }
 
@@ -109,7 +109,7 @@ div{
   grid-row-gap: 1vw;
   grid-column-gap: 1vw;
 }
-.grid-item {
+/* .grid-item {
   color: white;
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
@@ -117,6 +117,25 @@ div{
   text-align: center;
   width: 25vw;
   height: 10vw;
+} */
+.area {
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 27px;
+  text-align: center;
+  width: 20vw;
+  height: 10vw;
+  margin-right: 10px;
+}
+.chosenArea {
+  color: white;
+  outline: 2px solid blue;
+  outline-offset:3px;
+}
+#parent{
+    display:flex;
+    justify-content: space-between;
 }
 .optimal{
   background-color: #003300;
@@ -125,6 +144,9 @@ div{
   background-color: #7f0000;
 }
 
+.modal-title{
+  font-size: 27px;
+}
 .modal-content{
   width:auto;
   /* margin: auto; */
@@ -143,7 +165,8 @@ div{
 }
 
 th, td{
-  width: 200px;
+  width: 220px;
+  font-size: 27px;
 }
 
 table{

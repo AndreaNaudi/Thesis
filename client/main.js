@@ -73,9 +73,6 @@ function showError(error) {
 
 function isOptimalFn(index){
   index = parseInt(index);
-  var endEmpty = 5;
-  var dep = 1;
-  var arr = 4;
   var endEmpty = getPrediction(index,3);
   var dep = getPrediction(index,1);
   var arr = getPrediction(index,2);
@@ -171,7 +168,7 @@ var clock = new ReactiveVar(new Date());
 
 Template.new.helpers({
   getEntitiies: function(){
-    var p = Entities.find().fetch();
+    var p = Entities.find({}, {sort: {index:1}}).fetch();
     return p;
   },
   isOnSuggested: function(){
@@ -279,6 +276,9 @@ Template.new.helpers({
   isOptimal: function(index){
     return isOptimalFn(index);
   },
+  isSelected: function(index){
+    return Session.get('currentIndex') == index;
+  },
   isOptimalCurrent: function(){
     return isOptimalFn(Session.get('currentIndex'));
   },
@@ -286,7 +286,6 @@ Template.new.helpers({
     var type = Session.get('type');
     var today = new Date();
     var day = today.getDay();
-    day = 5;
     var clock = getTime();
     var hours = clock.getHours();
 
@@ -394,7 +393,7 @@ Template.new.events({
     Session.set('currentIndex', Session.get('suggestedIndex'));
     setLocation();
   },
-  'click .grid-item':function(e){
+  'click .area':function(e){
       var id = e.target.id;
       var clickedDiv = document.getElementById(id);
       var value = clickedDiv.getAttribute('value');

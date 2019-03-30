@@ -39,7 +39,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="menuModalLabel">Other Car Parks</h5>
@@ -48,9 +48,15 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="grid-container">
+          <!-- <div class="grid-container">
             {{#each p in getEntitiies}}
               <div class="{{#if isOptimal p.index}}optimal{{else}}notOptimal{{/if}} grid-item" name="{{p.name}}" value="{{p.index}}"
+              id="{{p.index}}">{{p.name}}</div>
+            {{/each}}
+          </div> -->
+          <div id="parent">
+            {{#each p in getEntitiies}}
+              <div class="{{#if isSelected p.index}}chosenArea{{/if}} {{#if isOptimal p.index}}optimal{{else}}notOptimal{{/if}} area" name="{{p.name}}" value="{{p.index}}"
               id="{{p.index}}">{{p.name}}</div>
             {{/each}}
           </div>
@@ -63,7 +69,7 @@
   </div>
 
   <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="menuModalLabel">Predicted {{getTypeName}} <b>{{getName}}</b></h5>
