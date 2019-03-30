@@ -159,7 +159,7 @@ function getPrediction(index, type){
 Template.new.onCreated(function newOnCreated() {
   Session.set('currentIndex',0);
   Session.set('suggestedIndex',0);
-  // setTimeout(function() { setLocation(); console.log(Session.get('currentIndex'));}, 1000);
+  setTimeout(function() { setLocation(); console.log(Session.get('currentIndex'));}, 1000);
   Meteor.setInterval(function() {
     clock.set(new Date());
   }, 1000);
@@ -286,6 +286,7 @@ Template.new.helpers({
     var type = Session.get('type');
     var today = new Date();
     var day = today.getDay();
+    day = 5;
     var clock = getTime();
     var hours = clock.getHours();
 
@@ -340,7 +341,6 @@ Template.new.helpers({
     if(hours == 11 || hours == 12){
       return ["11:56 - 11:59","11:59 - 12:02", "12:02 - 12:05", "12:05 - 12:08"];
     }
-
     return ["9:56 - 9:59","9:59 - 10:02", "10:02 - 10:05", "10:05 - 10:08"];
   },
   isCurrentInterval: function(time){
@@ -371,12 +371,12 @@ Template.new.events({
 
     Session.set('currentIndex', nextIndex);
 
-    // setLocation();
+    setLocation();
 
-    var msg = new SpeechSynthesisUtterance('1 slot available');
+    // var msg = new SpeechSynthesisUtterance('1 slot available');
     //var voices = window.speechSynthesis.getVoices()
     //msg.rate = 1.5;
-    window.speechSynthesis.speak(msg);
+    // window.speechSynthesis.speak(msg);
   },
   'click #previous-btn'(event,instance){
     var currentIndex = Session.get('currentIndex');
@@ -388,11 +388,11 @@ Template.new.events({
         prevIndex = currentIndex-1;
     }
     Session.set('currentIndex', prevIndex);
-    // setLocation();
+    setLocation();
   },
   'click #suggested-btn'(event,instance){
     Session.set('currentIndex', Session.get('suggestedIndex'));
-    // setLocation();
+    setLocation();
   },
   'click .grid-item':function(e){
       var id = e.target.id;
@@ -400,7 +400,7 @@ Template.new.events({
       var value = clickedDiv.getAttribute('value');
       value = parseInt(value);
       Session.set('currentIndex', value);
-      // setLocation();
+      setLocation();
       document.getElementById('close-menu-btn').click();
   },
   'click #departures':function(){
