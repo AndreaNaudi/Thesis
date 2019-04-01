@@ -85,7 +85,7 @@ function isOptimalFn(index){
   return optimality > 0;
 }
 function calculateScore(endEmpty, departures, arrivals){
-  return endEmpty + departures - arrivals;
+  return (1.5 * endEmpty) + departures - arrivals;
 }
 function getScoreSuggested(){
   var suggestedIndex = Session.get('suggestedIndex');
